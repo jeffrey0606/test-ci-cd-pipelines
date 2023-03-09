@@ -43,6 +43,7 @@ jobs:
           flutter-version: '3.3.7'
           cache: true
           channel: 'stable'
+      - run: flutter upgrade
       - run: flutter --version
       - name: Get android-version.txt
         uses: actions/download-artifact@v3
