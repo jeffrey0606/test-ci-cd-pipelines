@@ -63,22 +63,22 @@ jobs:
   github-deploy:
     needs: [ build ]
     name: Deploy Build to Github
-      steps:
-        - name: Create a Release in GitHub
-          uses: ncipollo/release-action@v1
-          with:
-            artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
-            token: ${{ secrets.GH_TOKEN }}
-            tag: ${{ steps.version.outputs.content }}
-            commit: ${{ github.sha }}
+    steps:
+      - name: Create a Release in GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
+          token: ${{ secrets.GH_TOKEN }}
+          tag: ${{ steps.version.outputs.content }}
+          commit: ${{ github.sha }}
   firebase-deplay:
     needs: [ build ]
     name: Deploy Build to Firebase App Distribution
-      steps:
-        - name: upload artifact to Firebase App Distribution
-          uses: wzieba/Firebase-Distribution-Github-Action@v1
-          with:
-            appId: ${{secrets.FIREBASE_APP_ID}}
-            serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-            groups: testers
-            file: build/app/outputs/apk/release/*.apk
+    steps:
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          groups: testers
+          file: build/app/outputs/apk/release/*.apk
