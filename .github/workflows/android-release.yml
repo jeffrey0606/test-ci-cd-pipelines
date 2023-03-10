@@ -62,7 +62,7 @@ jobs:
       - run: flutter build appbundle
   github-deploy:
     name: Deploy Build to Github
-    needs: [ build ]
+    needs: [ build, version ]
     runs-on: macos-latest
     steps:
       - name: Create a Release in GitHub
@@ -75,7 +75,7 @@ jobs:
   firebase-deplay:
     name: Deploy Build to Firebase App Distribution
     needs: [ build ]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
