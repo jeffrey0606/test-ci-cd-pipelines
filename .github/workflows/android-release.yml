@@ -61,8 +61,9 @@ jobs:
       - run: flutter build apk --release --split-per-abi
       - run: flutter build appbundle
   github-deploy:
-    needs: [ build ]
     name: Deploy Build to Github
+    needs: [ build ]
+    runs-on: macos-latest
     steps:
       - name: Create a Release in GitHub
         uses: ncipollo/release-action@v1
@@ -72,8 +73,9 @@ jobs:
           tag: ${{ steps.version.outputs.content }}
           commit: ${{ github.sha }}
   firebase-deplay:
-    needs: [ build ]
     name: Deploy Build to Firebase App Distribution
+    needs: [ build ]
+    runs-on: macos-latest
     steps:
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
