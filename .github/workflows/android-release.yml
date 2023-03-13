@@ -76,6 +76,8 @@ jobs:
           name: flutter-app-builds
       - name: Echo android-version.txt
         run: echo "${{ steps.version.outputs.content }}"
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Create a Release in GitHub
         uses: ncipollo/release-action@v1
         with:
@@ -83,7 +85,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           tag: ${{ steps.version.outputs.content }}
           commit: ${{ github.sha }}
-  firebase-deplay:
+  firebase-deploy:
     name: Deploy Build to Firebase App Distribution
     needs: [ build ]
     runs-on: ubuntu-latest #macos-latest
