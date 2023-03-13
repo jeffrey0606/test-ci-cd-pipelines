@@ -45,6 +45,15 @@ jobs:
           channel: 'stable'
       - run: flutter upgrade
       - run: flutter --version
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk --release --split-per-abi
+      - run: flutter build appbundle
+  github-deploy:
+    name: Deploy Build to Github
+    needs: [ build, version ]
+    runs-on: ubuntu-latest #macos-latest
+    steps:
       - name: Get android-version.txt
         uses: actions/download-artifact@v3
         with:
@@ -56,15 +65,6 @@ jobs:
           path: android-version.txt
       - name: Echo android-version.txt
         run: echo "${{ steps.version.outputs.content }}"
-      - run: flutter pub get
-      - run: flutter test
-      - run: flutter build apk --release --split-per-abi
-      - run: flutter build appbundle
-  github-deploy:
-    name: Deploy Build to Github
-    needs: [ build, version ]
-    runs-on: ubuntu-latest #macos-latest
-    steps:
       - name: Create a Release in GitHub
         uses: ncipollo/release-action@v1
         with:
