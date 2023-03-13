@@ -81,7 +81,7 @@ jobs:
       - name: Create a Release in GitHub
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "apk/release/*.apk,/bundle/release/app-release.aab"
+          artifacts: "apk/release/*.apk,bundle/release/app-release.aab"
           token: ${{ secrets.GH_TOKEN }}
           tag: ${{ steps.version.outputs.content }}
           commit: ${{ github.sha }}
@@ -100,4 +100,4 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testers
-          file: "apk/release/*.apk"
+          file: bundle/release/app-release.aab
