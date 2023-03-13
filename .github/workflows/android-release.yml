@@ -65,26 +65,21 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: gitversion
-          path: ~/Downloads
-      - name: Get app builds
-        uses: actions/download-artifact@v3
-        with:
-          name: flutter-app-builds
-          path: ~/Downloads
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: ~/Downloads
       - name: Read version
         id: version
         uses: juliangruber/read-file-action@v1
         with:
-          path: ~/Downloads/android-version.txt
+          path: android-version.txt
+      - name: Get app builds
+        uses: actions/download-artifact@v3
+        with:
+          name: flutter-app-builds
       - name: Echo android-version.txt
         run: echo "${{ steps.version.outputs.content }}"
       - name: Create a Release in GitHub
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "Downloads/*.apk,Downloads/app-release.aab"
+          artifacts: "*.apk,app-release.aab"
           token: ${{ secrets.GH_TOKEN }}
           tag: ${{ steps.version.outputs.content }}
           commit: ${{ github.sha }}
@@ -93,19 +88,14 @@ jobs:
     needs: [ build ]
     runs-on: ubuntu-latest #macos-latest
     steps:
-      - uses: actions/checkout@v3
       - name: Get app builds
         uses: actions/download-artifact@v3
         with:
           name: flutter-app-builds
-          path: ~/Downloads
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: ~/Downloads
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testers
-          file: Downloads/*.apk
+          file: *.apk
