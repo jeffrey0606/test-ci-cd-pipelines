@@ -49,6 +49,14 @@ jobs:
       - run: flutter test
       - run: flutter build apk --release --split-per-abi
       - run: flutter build appbundle
+          - name: Upload android-version.txt
+      - name: upload app builds files
+        uses: actions/upload-artifact@v3
+        with:
+          name: flutter-app-builds
+          path: |
+            build/app/outputs/apk/release/*.apk
+            build/app/outputs/bundle/release/app-release.aab
   github-deploy:
     name: Deploy Build to Github
     needs: [ build, version ]
@@ -63,6 +71,10 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: android-version.txt
+      - name: Get app builds
+        uses: actions/download-artifact@v3
+        with:
+          name: flutter-app-builds
       - name: Echo android-version.txt
         run: echo "${{ steps.version.outputs.content }}"
       - name: Create a Release in GitHub
@@ -77,6 +89,10 @@ jobs:
     needs: [ build ]
     runs-on: ubuntu-latest #macos-latest
     steps:
+      - name: Get app builds
+        uses: actions/download-artifact@v3
+        with:
+          name: flutter-app-builds
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
