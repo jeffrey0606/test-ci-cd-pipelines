@@ -65,16 +65,20 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: gitversion
-      - name: Read version
-        id: version
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: android-version.txt
+          path: ~/Downloads
       - name: Get app builds
         uses: actions/download-artifact@v3
         with:
           name: flutter-app-builds
           path: ~/Downloads
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ~/Downloads
+      - name: Read version
+        id: version
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ~/Downloads/android-version.txt
       - name: Echo android-version.txt
         run: echo "${{ steps.version.outputs.content }}"
       - name: Create a Release in GitHub
@@ -89,10 +93,15 @@ jobs:
     needs: [ build ]
     runs-on: ubuntu-latest #macos-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Get app builds
         uses: actions/download-artifact@v3
         with:
           name: flutter-app-builds
+          path: ~/Downloads
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ~/Downloads
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
