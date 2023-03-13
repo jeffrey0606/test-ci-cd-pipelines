@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "812510759032",
+    "project_id": "test-ci-cd-pipelines",
+    "storage_bucket": "test-ci-cd-pipelines.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812510759032:android:258eaeb6eceda9f83f458d",
+        "android_client_info": {
+          "package_name": "com.example.test_ci_cd_pipeline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812510759032-ttmkrdqvooqiupudcc61ol16ea4r5mu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFLNXr1Cr9iGGXixE-B7f8EkEWO38Hhks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812510759032-ttmkrdqvooqiupudcc61ol16ea4r5mu7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "812510759032-c16pceias2hice17ef9smdsf874h5dvo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testCiCdPipeline"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

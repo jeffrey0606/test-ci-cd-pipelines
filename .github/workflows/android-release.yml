@@ -10,7 +10,7 @@ jobs:
     name: Create version number # using GitVersion
     runs-on: ubuntu-latest #macos-latest
     steps:
-    - uses: actions/checkout@v3.3.0
+    - uses: actions/checkout@v3
     - name: Fetch all history for all tags and branches
       run: git fetch --prune --depth=10000
     - name: Install GitVersion
